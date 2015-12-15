@@ -1,4 +1,4 @@
-var Gpio = require('onoff').Gpio,
+var Gpio = require('onoff').Gpio;
 var socket = require('socket.io-client')('http://192.168.0.104:8080');
 
 led = new Gpio(5, 'out');
