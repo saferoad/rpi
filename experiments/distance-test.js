@@ -1,32 +1,22 @@
 var statistics = require('math-statistics');
 var usonic = require('r-pi-usonic');
 
-
 var init = function(config) {
 
 	var sensor = usonic.createSensor(config.echoPin, config.triggerPin, config.timeout);
 
-	var distances;
-
 	(function measure() {
-		if (!distances || distances.length === config.rate) {
-			if (distances) {
-				print(distances);
-			}
-			
-			distances = [];
-		}
+
+		print(sensor());
 
 		setTimeout(function() {
-			distances.push(sensor());
 			measure();
 		}, config.delay);
 	}());
 };
 
-var print = function(distances) {
+var print = function(distance) {
 	
-	var distance = statistics.median(distances);
 	process.stdout.clearLine();
 	process.stdout.cursorTo(0);
 	
