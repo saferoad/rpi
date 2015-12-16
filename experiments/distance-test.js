@@ -1,16 +1,13 @@
 var statistics = require('math-statistics');
 var usonic = require('r-pi-usonic');
 
-usonic.init(function(err){
-	if(err) {
-		console.log("Error: "+err);
-	}
-});
 
 var init = function(config) {
+
 	var sensor = usonic.createSensor(config.echoPin, config.triggerPin, config.timeout);
-	//console.log(config);
+
 	var distances;
+
 	(function measure() {
 		if (!distances || distances.length === config.rate) {
 			if (distances) {
@@ -40,10 +37,16 @@ var print = function(distances) {
 	}
 };
 
-init({
-	echoPin: 15, //Echo pin
-	triggerPin: 14, //Trigger pin
-	timeout: 1000, //Measurement timeout in µs
-	delay: 60, //Measurement delay in ms
-	rate: 5 //Measurements per sample
+usonic.init(function(err){
+	if(err) {
+		console.log("Error: "+err);
+	} else {
+		init({
+			echoPin: 15, //Echo pin
+			triggerPin: 14, //Trigger pin
+			timeout: 1000, //Measurement timeout in µs
+			delay: 60, //Measurement delay in ms
+			rate: 5 //Measurements per sample
+		});
+	}
 });
