@@ -1,4 +1,4 @@
-var socket = require('socket.io-client')('http://localhost:8080');
+var socket = require('socket.io-client')('http://45.55.220.113');
 var exec = require('child_process').execFile;
 
 socket.on('connect', function() {
