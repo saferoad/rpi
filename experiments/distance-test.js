@@ -29,7 +29,7 @@ usonic.init(function(err){
 		console.log("Error: "+err);
 	} else {
 		init({
-			echoPin: 15, //Echo pin
+			echoPin: 23, //Echo pin
 			triggerPin: 14, //Trigger pin
 			timeout: 1000, //Measurement timeout in µs
 			delay: 100, //Measurement delay in ms
