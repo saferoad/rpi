@@ -1,6 +1,10 @@
 var statistics = require('math-statistics');
 var usonic = require('r-pi-usonic');
 
+var Gpio = require('onoff').Gpio;
+
+led = new Gpio(17, 'out');
+
 var init = function(config) {
 
 	var sensor = usonic.createSensor(config.echoPin, config.triggerPin, config.timeout);
@@ -18,9 +22,15 @@ var init = function(config) {
 var print = function(distance) {
 	
 	if (distance < 0) {
-		process.stdout.write('Error: Measurement timeout.\n');
+		process.stdout.write('Error: Measurement timeout.\n--\n');
+		led.writeSync(0)
 	} else {
 		process.stdout.write('Distance: ' + distance.toFixed(2) + ' cm');
+		if(distance.toFixed(2) < 10) {
+			led.writeSync(1)
+		} else {
+			led.writeSync(0)
+		}
 	}
 };
 
