@@ -37,6 +37,8 @@ init = function(){
 		}
 
 		radars[i] = radarsData[i];
+		radars[i].carDistance = config.radars[i].carDistance;
+		radars[i].timeout = config.radars[i].timeout;
 		radars[i].sensor = usonic.createSensor(config.radars[i].echo, config.radars[i].trigger, config.radars[i].timeout);
 
 	}
@@ -52,7 +54,7 @@ init = function(){
 	}
 	
 
-	socket.emit("rpi.init", leds);
+	// socket.emit("rpi.init", leds);
 	
 	socket.on("light.up", function(data) {
 		var led = leds[data.index];
@@ -82,14 +84,16 @@ monitorRadar  = function(radar) {
 	
 	console.log("Monitoring radar on position" + radar.pos)
 
-	setTimeout(function() {
+	setInterval(function() {
 		var distance = radar.sensor();
+		console.log("Radar @"+radar.pos+" > "+distance);
 		if (distance < radar.carDistance) {
 			socket.emit("capture.car", {
-				"pos": radar.pos
+				"pos": radar.pos,
+				"distance": distance 
 			});
 		}
-	}, radar.frequency);
+	}, radar.timeout);
 }
 
 
