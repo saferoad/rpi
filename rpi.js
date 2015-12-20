@@ -42,15 +42,15 @@ init = function(){
 monitorRadar = function() {
 	console.log("Monitoring...");
 	setInterval(function() {
-		console.log("...");
-		// var distance = radar();
-		// if(distance > 0) {
-		// 	console.log(distance.toFixed(2)+"cm");
-		// 	if(distance > 0 && distance < 10) {
-		// 		socket.emit("capture.car",{});
-		// 	}
-		// } else {
-		// 	console.log("timeout");
-		// }
+		var distance = radar();
+		console.log(distance);
+		if(distance > 0) {
+			console.log(distance.toFixed(2)+"cm");
+			if(distance > 0 && distance < 10) {
+				socket.emit("capture.car",{});
+			}
+		} else {
+			console.log("timeout");
+		}
 	}, 100)
 }
