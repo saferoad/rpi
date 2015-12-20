@@ -90,6 +90,6 @@ monitorRadars  = function() {
 			});
 		}
 
-		index = (index+1)%radars.length;
+		index = (index+1) % Object.keys(radars).length;
 	}, 10)
 }
