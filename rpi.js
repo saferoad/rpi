@@ -40,7 +40,7 @@ io.on('connect', function() {
 init = function(){
 	Gpio = require('onoff').Gpio;
 	led = new Gpio(4, 'out');
-	radar = usonic.createSensor(2, 3, 1000);
+	radar = usonic.createSensor(2, 3, 500);
 
 	monitorRadar();
 }
