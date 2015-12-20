@@ -76,7 +76,7 @@ init = function(){
 
 startMonitoringDistances = function() {
 	for (var i in radars) {
-		monitorRadar(radars[i], (radars[i].timeout*i/Object.keys(radars).length));
+		monitorRadar(radars[i], radars[i].timeout*i/Object.keys(radars).length));
 	}
 }
 
@@ -87,6 +87,7 @@ monitorRadar  = function(radar, delay) {
 		setInterval(function() {
 			setTimeout(function(){
 				var distance = radar.sensor();
+				console.log("Radar "+radar.pos + " > "+ distance);
 				if (distance > 0 && distance < radar.carDistance) {
 					socket.emit("capture.car", {
 						"pos": radar.pos,
