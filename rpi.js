@@ -86,13 +86,13 @@ monitorRadar  = function(radar) {
 
 	setInterval(function() {
 		var distance = radar.sensor();
-		console.log("Radar @"+radar.pos+" > "+distance);
-		if (distance > 0 && distance < radar.carDistance) {
-			socket.emit("capture.car", {
-				"pos": radar.pos,
-				"distance": distance 
-			});
-		}
+		console.log(new Date().getTime());
+		// if (distance > 0 && distance < radar.carDistance) {
+		// 	socket.emit("capture.car", {
+		// 		"pos": radar.pos,
+		// 		"distance": distance 
+		// 	});
+		// }
 	}, radar.timeout);
 }
 
