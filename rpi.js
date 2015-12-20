@@ -29,6 +29,10 @@ init = function(){
 	socket = require('socket.io-client')("http://45.55.220.113");
 	radar = usonic.createSensor(23, 24, 1000);
 
+	socket.on('connect', function() {
+		console.log("Connected!");
+	})
+
 	socket.on("light.up", function(data) {
 		console.log("light-up");
 		if(led.gpio.readSync() == 0) {
