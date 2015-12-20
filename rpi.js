@@ -33,11 +33,16 @@ init = function(){
 }
 
 monitorRadar  = function() {
+	console.log("Monitoring...");
 	setInterval(function() {
 		var distance = radar();
-		console.log(distance.toFixed(2)+"cm");
-		if(distance > 0 && distance < 10) {
-			socket.emit("capture.car",{});
+		if(distance > 0) {
+			console.log(distance.toFixed(2)+"cm");
+			if(distance > 0 && distance < 10) {
+				socket.emit("capture.car",{});
+			}
+		} else {
+			console.log("timeout");
 		}
 	}, 100)
 }
