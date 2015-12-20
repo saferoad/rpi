@@ -26,12 +26,12 @@ io.on('connect', function() {
 		
 		if(!light) {
 
-			led.gpio.writeSync(1);
+			led.writeSync(1);
 			light = true;
-			
+
 			setTimeout(function() {
 				light = false
-				led.gpio.writeSync(0);
+				led.writeSync(0);
 			}, 2000);
 		}
 	});
