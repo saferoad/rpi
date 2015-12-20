@@ -8,6 +8,7 @@ var config = {};
 var radar = null;
 var led = null;
 
+var light = false;
 
 io.on('connect', function() {
 	console.log("Connected!");
@@ -22,9 +23,14 @@ io.on('connect', function() {
 
 	io.on("light.up", function(data) {
 		console.log("light-up");
-		if(led.gpio.readSync() == 0) {
+		
+		if(!light) {
+
 			led.gpio.writeSync(1);
+			light = true;
+			
 			setTimeout(function() {
+				light = false
 				led.gpio.writeSync(0);
 			}, 2000);
 		}
