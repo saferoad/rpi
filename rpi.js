@@ -81,20 +81,20 @@ startMonitoringDistances = function() {
 }
 
 monitorRadar  = function(radar, delay) {
-	console.log("Monitoring radar on position" + radar.pos)
+	console.log("Monitoring radar on position with delay" + radar.pos, delay);
 
 	setTimeout(function() {
 		setInterval(function() {
 			console.log(new Date().getTime());
-			// setTimeout(function(){
-			// 	var distance = radar.sensor();
-			// 	if (distance > 0 && distance < radar.carDistance) {
-			// 		socket.emit("capture.car", {
-			// 			"pos": radar.pos,
-			// 			"distance": distance 
-			// 		});
-			// 	}
-			// },0);
+			setTimeout(function(){
+				var distance = radar.sensor();
+				if (distance > 0 && distance < radar.carDistance) {
+					socket.emit("capture.car", {
+						"pos": radar.pos,
+						"distance": distance 
+					});
+				}
+			},0);
 		}, radar.timeout);
 	}, delay);
 }
