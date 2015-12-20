@@ -9,9 +9,9 @@ var radar = null;
 var led = null;
 
 
-io.on('connect', function(socket) {
+io.on('connect', function(con) {
 	console.log("Connected!");
-
+	socket = con;
 	usonic.init(function(err){
 		if(err) {
 			console.log("Error: "+err);
@@ -20,7 +20,7 @@ io.on('connect', function(socket) {
 		}
 	});
 
-	io.on("light.up", function(data) {
+	con.on("light.up", function(data) {
 		console.log("light-up");
 		if(led.gpio.readSync() == 0) {
 			led.gpio.writeSync(1);
