@@ -87,7 +87,7 @@ monitorRadar  = function(radar) {
 	setInterval(function() {
 		var distance = radar.sensor();
 		console.log("Radar @"+radar.pos+" > "+distance);
-		if (distance < radar.carDistance) {
+		if (distance > 0 && distance < radar.carDistance) {
 			socket.emit("capture.car", {
 				"pos": radar.pos,
 				"distance": distance 
