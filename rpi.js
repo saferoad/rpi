@@ -75,10 +75,10 @@ init = function(){
 }
 
 monitorRadars  = function() {
-	var i = 0;
+	var index = 0;
 	setInterval(function() {
-		
-		var radar = radars[i];
+		console.log("Checking #"+index);
+		var radar = radars[index];
 		var distance = radar.sensor();
 		
 		console.log("Radar "+radar.pos + " > "+ distance);
@@ -90,6 +90,6 @@ monitorRadars  = function() {
 			});
 		}
 
-		i = (i+1)%radars.length;
+		index = (index+1)%radars.length;
 	}, 10)
 }
