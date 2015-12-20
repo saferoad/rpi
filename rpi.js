@@ -13,13 +13,13 @@ fs.readFile(__dirname+'/config.env', function(err, data){
 	}
 
 	config = JSON.parse(data);
-	// usonic.init(function(err){
-	// 	if(err) {
-	// 		console.log("Error: "+err);
-	// 	} else {
+	usonic.init(function(err){
+		if(err) {
+			console.log("Error: "+err);
+		} else {
 			init();
-	// 	}
-	// });
+		}
+	});
 });
 
 
@@ -37,7 +37,7 @@ init = function(){
 		}
 
 		radars[i] = radarsData[i];
-		// radars[i].sensor = usonic.createSensor(config.radars[i].echo, config.radars[i].trigger, config.radars[i].timeout);
+		radars[i].sensor = usonic.createSensor(config.radars[i].echo, config.radars[i].trigger, config.radars[i].timeout);
 
 	}
 
@@ -77,8 +77,8 @@ monitorRadar  = function(radar) {
 
 socket.on("light.up", function(data) {
 	var led = leds[data.index];
-	led.gpio.writeSync(1);
-	console.log("Lighting up #"+data.index);
+	// led.gpio.writeSync(1);
+	// console.log("Lighting up #"+data.index);
 	
 	if(lightTimeouts[data.index]) {
 		clearTimeout(lightTimeouts[data.index]);
@@ -86,7 +86,7 @@ socket.on("light.up", function(data) {
 	}
 	
 	lightTimeouts[data.index] = setTimeout(function() {
-		led.gpio.writeSync(0);
+		// led.gpio.writeSync(0);
 	}, 500);
 });
 
