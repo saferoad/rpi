@@ -1,6 +1,6 @@
 var Gpio = require('onoff').Gpio;
 
-led = new Gpio(5, 'out');
+led = new Gpio(3, 'out');
 
 
 setInterval(function() {
