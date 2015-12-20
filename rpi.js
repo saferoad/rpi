@@ -24,36 +24,36 @@ socket.on("light.up", function(data) {
 	}
 });
 
-fs.readFile(__dirname+'/config.env', function(err, data){
-	if(err) {
-		throw err;
-	}
+// fs.readFile(__dirname+'/config.env', function(err, data){
+// 	if(err) {
+// 		throw err;
+// 	}
 
-	config = JSON.parse(data);
-	usonic.init(function(err){
-		if(err) {
-			console.log("Error: "+err);
-		} else {
-			init();
-		}
-	});
-});
+// 	config = JSON.parse(data);
+// 	usonic.init(function(err){
+// 		if(err) {
+// 			console.log("Error: "+err);
+// 		} else {
+// 			init();
+// 		}
+// 	});
+// });
 
 
-init = function(){
-	Gpio = require('onoff').Gpio;
-	led = new Gpio(3, 'out');
-	radar = usonic.createSensor(23, 24, 1000);
+// init = function(){
+// 	Gpio = require('onoff').Gpio;
+// 	led = new Gpio(3, 'out');
+// 	radar = usonic.createSensor(23, 24, 1000);
 
-	monitorRadar();
-}
+// 	monitorRadar();
+// }
 
-monitorRadar  = function() {
-	setInterval(function() {
-		var distance = radar();
-		console.log(distance.toFixed(2)+"cm");
-		if(distance > 0 && distance < 10) {
-			socket.emit("capture.car",{});
-		}
-	}, 100)
-}
+// monitorRadar  = function() {
+// 	setInterval(function() {
+// 		var distance = radar();
+// 		console.log(distance.toFixed(2)+"cm");
+// 		if(distance > 0 && distance < 10) {
+// 			socket.emit("capture.car",{});
+// 		}
+// 	}, 100)
+// }
