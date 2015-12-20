@@ -76,12 +76,12 @@ init = function(){
 
 startMonitoringDistances = function() {
 	for (var i in radars) {
-		monitorRadar(radars[i], (radars[i].timeout*i/radars.length));
+		monitorRadar(radars[i], (radars[i].timeout*i/Object.keys(radars).length));
 	}
 }
 
 monitorRadar  = function(radar, delay) {
-	console.log("Monitoring radar on position "+radar.pos+" with delay" + delay);
+	console.log("Monitoring radar on position "+radar.pos+" with delay " + delay);
 
 	setTimeout(function() {
 		setInterval(function() {
