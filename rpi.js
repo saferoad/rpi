@@ -76,7 +76,7 @@ init = function(){
 
 startMonitoringDistances = function() {
 	for (var i in radars) {
-		monitorRadar(radars[i], radars[i].timeout*i/Object.keys(radars).length));
+		monitorRadar(radars[i], radars[i].timeout*i/Object.keys(radars).length);
 	}
 }
 
