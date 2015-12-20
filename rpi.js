@@ -76,24 +76,25 @@ init = function(){
 
 startMonitoringDistances = function() {
 	for (var i in radars) {
-		monitorRadar(radars[i]);
+		monitorRadar(radars[i],(radar.timeout*i/radars.length));
 	}
 }
 
-monitorRadar  = function(radar) {
-	
+monitorRadar  = function(radar, delay) {
 	console.log("Monitoring radar on position" + radar.pos)
 
-	setInterval(function() {
-		var distance = radar.sensor();
-		console.log(new Date().getTime());
-		// if (distance > 0 && distance < radar.carDistance) {
-		// 	socket.emit("capture.car", {
-		// 		"pos": radar.pos,
-		// 		"distance": distance 
-		// 	});
-		// }
-	}, radar.timeout);
+	setTimeout(function() {
+		setInterval(function() {
+			console.log(new Date().getTime());
+			var distance = radar.sensor();
+			if (distance > 0 && distance < radar.carDistance) {
+				socket.emit("capture.car", {
+					"pos": radar.pos,
+					"distance": distance 
+				});
+			}
+		}, radar.timeout);
+	}, delay);
 }
 
 
