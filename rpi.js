@@ -39,7 +39,7 @@ init = function(){
 		radars[i] = radarsData[i];
 		radars[i].carDistance = config.radars[i].carDistance;
 		radars[i].timeout = config.radars[i].timeout;
-		radars[i].sensor = usonic.createSensor(config.radars[i].echo, config.radars[i].trigger, config.radars[i].timeout);
+		radars[i].sensor = usonic.createSensor(config.radars[i].echo, config.radars[i].trigger);
 
 	}
 
@@ -71,30 +71,25 @@ init = function(){
 		}, 500);
 	});
 
-	startMonitoringDistances();
+	monitorRadars();
 }
 
-startMonitoringDistances = function() {
-	for (var i in radars) {
-		monitorRadar(radars[i], radars[i].timeout*i/Object.keys(radars).length);
-	}
-}
+monitorRadars  = function() {
+	var i = 0;
+	setInterval(function() {
+		
+		var radar = radars[i];
+		var distance = radar.sensor();
+		
+		console.log("Radar "+radar.pos + " > "+ distance);
+		
+		if (distance > 0 && distance < radar.carDistance) {
+			socket.emit("capture.car", {
+				"pos": radar.pos,
+				"distance": distance 
+			});
+		}
 
-monitorRadar  = function(radar, delay) {
-	console.log("Monitoring radar on position "+radar.pos+" with delay " + delay);
-
-	setTimeout(function() {
-		setInterval(function() {
-			setTimeout(function(){
-				var distance = radar.sensor();
-				console.log("Radar "+radar.pos + " > "+ distance);
-				if (distance > 0 && distance < radar.carDistance) {
-					socket.emit("capture.car", {
-						"pos": radar.pos,
-						"distance": distance 
-					});
-				}
-			},0);
-		}, radar.timeout);
-	}, delay);
+		i = (i+1)%radars.length;
+	}, 10)
 }
