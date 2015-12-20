@@ -39,7 +39,7 @@ init = function(){
 		radars[i] = radarsData[i];
 		radars[i].carDistance = config.radars[i].carDistance;
 		radars[i].timeout = config.radars[i].timeout;
-		radars[i].sensor = usonic.createSensor(config.radars[i].echo, config.radars[i].trigger);
+		radars[i].sensor = usonic.createSensor(config.radars[i].echo, config.radars[i].trigger, config.radars[i].timeout);
 
 	}
 
