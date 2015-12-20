@@ -41,7 +41,7 @@ init = function(){
 
 monitorRadar  = function() {
 	setInterval(function() {
-		var distance = radar.sensor();
+		var distance = radar();
 		if(distance > 0 && distance < 10) {
 			socket.emit("capture.car",{});
 		}
