@@ -53,6 +53,21 @@ init = function(){
 	
 
 	socket.emit("rpi.init", leds);
+	
+	socket.on("light.up", function(data) {
+	var led = leds[data.index];
+	// led.gpio.writeSync(1);
+	// console.log("Lighting up #"+data.index);
+	
+	if(lightTimeouts[data.index]) {
+		clearTimeout(lightTimeouts[data.index]);
+		delete lightTimeouts[data.index];
+	}
+	
+	lightTimeouts[data.index] = setTimeout(function() {
+		// led.gpio.writeSync(0);
+	}, 500);
+});
 
 	startMonitoringDistances();
 }
@@ -75,18 +90,5 @@ monitorRadar  = function(radar) {
 }
 
 
-socket.on("light.up", function(data) {
-	var led = leds[data.index];
-	// led.gpio.writeSync(1);
-	// console.log("Lighting up #"+data.index);
-	
-	if(lightTimeouts[data.index]) {
-		clearTimeout(lightTimeouts[data.index]);
-		delete lightTimeouts[data.index];
-	}
-	
-	lightTimeouts[data.index] = setTimeout(function() {
-		// led.gpio.writeSync(0);
-	}, 500);
-});
+
 
