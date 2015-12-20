@@ -12,8 +12,14 @@ var led = null;
 io.on('connect', function(socket) {
 	console.log("Connected!");
 
-	init();
-	
+	usonic.init(function(err){
+		if(err) {
+			console.log("Error: "+err);
+		} else {
+			init();
+		}
+	});
+
 	io.on("light.up", function(data) {
 		console.log("light-up");
 		if(led.gpio.readSync() == 0) {
