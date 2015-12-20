@@ -33,8 +33,8 @@ io.on('connect', function(socket) {
 
 init = function(){
 	Gpio = require('onoff').Gpio;
-	led = new Gpio(2, 'out');
-	radar = usonic.createSensor(3, 4, 1000);
+	led = new Gpio(4, 'out');
+	radar = usonic.createSensor(2, 3, 1000);
 
 	monitorRadar();
 }
