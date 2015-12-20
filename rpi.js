@@ -81,7 +81,7 @@ startMonitoringDistances = function() {
 }
 
 monitorRadar  = function(radar, delay) {
-	console.log("Monitoring radar on position with delay" + radar.pos, delay);
+	console.log("Monitoring radar on position "+radar.pos+" with delay" + delay);
 
 	setTimeout(function() {
 		setInterval(function() {
@@ -97,7 +97,3 @@ monitorRadar  = function(radar, delay) {
 		}, radar.timeout);
 	}, delay);
 }
-
-
-
-
