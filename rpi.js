@@ -21,7 +21,7 @@ io.on('connect', function(con) {
 		}
 	});
 
-	socket.on("light.up", function(data) {
+	io.on("light.up", function(data) {
 		console.log("light-up");
 		if(led.gpio.readSync() == 0) {
 			led.gpio.writeSync(1);
