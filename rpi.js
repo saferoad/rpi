@@ -45,5 +45,5 @@ monitorRadar  = function() {
 		if(distance > 0 && distance < 10) {
 			socket.emit("capture.car",{});
 		}
-	}, 50)
+	}, 100)
 }
