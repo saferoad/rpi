@@ -48,26 +48,26 @@ init = function(){
 		}
 		
 		leds[i] = ledsData[i];
-		leds[i].gpio = new Gpio(config.leds.pin, 'out');
+		// leds[i].gpio = new Gpio(config.leds.pin, 'out');
 	}
 	
 
 	socket.emit("rpi.init", leds);
 	
 	socket.on("light.up", function(data) {
-	var led = leds[data.index];
-	// led.gpio.writeSync(1);
-	// console.log("Lighting up #"+data.index);
-	
-	if(lightTimeouts[data.index]) {
-		clearTimeout(lightTimeouts[data.index]);
-		delete lightTimeouts[data.index];
-	}
-	
-	lightTimeouts[data.index] = setTimeout(function() {
-		// led.gpio.writeSync(0);
-	}, 500);
-});
+		var led = leds[data.index];
+		// led.gpio.writeSync(1);
+		// console.log("Lighting up #"+data.index);
+		
+		if(lightTimeouts[data.index]) {
+			clearTimeout(lightTimeouts[data.index]);
+			delete lightTimeouts[data.index];
+		}
+		
+		lightTimeouts[data.index] = setTimeout(function() {
+			// led.gpio.writeSync(0);
+		}, 500);
+	});
 
 	startMonitoringDistances();
 }
@@ -79,6 +79,9 @@ startMonitoringDistances = function() {
 }
 
 monitorRadar  = function(radar) {
+	
+	console.log("Monitoring radar on position" + radar.pos)
+
 	setTimeout(function() {
 		var distance = radar.sensor();
 		if (distance < radar.carDistance) {
