@@ -30,10 +30,12 @@ init = function(){
 	radar = usonic.createSensor(23, 24, 1000);
 
 	socket.on("light.up", function(data) {
-		led.gpio.writeSync(1);
-		setTimeout(function() {
-			led.gpio.writeSync(0);
-		}, 2000);
+		if(led.gpio.readSync() == 0) {
+			led.gpio.writeSync(1);
+			setTimeout(function() {
+				led.gpio.writeSync(0);
+			}, 2000);
+		}
 	});
 
 	monitorRadar();
@@ -42,6 +44,7 @@ init = function(){
 monitorRadar  = function() {
 	setInterval(function() {
 		var distance = radar();
+		console.log(distance.toFixed(2)+"cm");
 		if(distance > 0 && distance < 10) {
 			socket.emit("capture.car",{});
 		}
