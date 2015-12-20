@@ -9,10 +9,9 @@ var radar = null;
 var led = null;
 
 
-io.on('connect', function(con) {
+io.on('connect', function() {
 	console.log("Connected!");
-	socket = con;
-	
+
 	usonic.init(function(err){
 		if(err) {
 			console.log("Error: "+err);
@@ -48,7 +47,7 @@ monitorRadar = function() {
 		if(distance > 0) {
 			console.log(distance.toFixed(2)+"cm");
 			if(distance > 0 && distance < 10) {
-				socket.emit("capture.car",{});
+				io.emit("capture.car",{});
 			}
 		} else {
 			console.log("timeout");
